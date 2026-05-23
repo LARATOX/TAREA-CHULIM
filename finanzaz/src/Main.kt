@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane
+
 fun main() {
 
     val manager = FinanzasManager()
@@ -6,34 +8,50 @@ fun main() {
 
     do {
 
-        println("\n===== FINANZAS PERSONALES =====")
-        println("1. Registrar ingreso")
-        println("2. Registrar gasto")
-        println("3. Mostrar movimientos")
-        println("4. Buscar por categoría")
-        println("5. Mostrar saldo")
-        println("6. Salir")
+        val opcionTexto = JOptionPane.showInputDialog(
+            null,
+            """
+            ===== FINANZAS PERSONALES =====
+            
+            1. Registrar ingreso
+            2. Registrar gasto
+            3. Mostrar movimientos
+            4. Buscar por categoría
+            5. Mostrar saldo
+            6. Salir
+            """.trimIndent(),
+            "Menú Principal",
+            JOptionPane.QUESTION_MESSAGE
+        )
 
-        print("Seleccione una opción: ")
-
-        opcion = readlnOrNull()?.toIntOrNull() ?: 0
+        opcion = opcionTexto?.toIntOrNull() ?: 6
 
         when (opcion) {
 
             1 -> {
 
-                print("Categoría: ")
-                val categoria = readln()
+                val categoria = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese la categoría:",
+                    "Nuevo Ingreso",
+                    JOptionPane.QUESTION_MESSAGE
+                ) ?: ""
 
-                print("Descripción: ")
-                val descripcion =
-                    readlnOrNull()?.takeIf {
-                        it.isNotBlank()
-                    } ?: "Sin descripción"
+                val descripcion = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese la descripción:",
+                    "Nuevo Ingreso",
+                    JOptionPane.QUESTION_MESSAGE
+                )?.takeIf {
+                    it.isNotBlank()
+                } ?: "Sin descripción"
 
-                print("Monto: ")
-                val monto =
-                    readlnOrNull()?.toDoubleOrNull() ?: 0.0
+                val monto = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese el monto:",
+                    "Nuevo Ingreso",
+                    JOptionPane.QUESTION_MESSAGE
+                )?.toDoubleOrNull() ?: 0.0
 
                 manager.agregarMovimiento(
                     "Ingreso",
@@ -41,22 +59,37 @@ fun main() {
                     descripcion,
                     monto
                 )
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Ingreso registrado correctamente."
+                )
             }
 
             2 -> {
 
-                print("Categoría: ")
-                val categoria = readln()
+                val categoria = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese la categoría:",
+                    "Nuevo Gasto",
+                    JOptionPane.QUESTION_MESSAGE
+                ) ?: ""
 
-                print("Descripción: ")
-                val descripcion =
-                    readlnOrNull()?.takeIf {
-                        it.isNotBlank()
-                    } ?: "Sin descripción"
+                val descripcion = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese la descripción:",
+                    "Nuevo Gasto",
+                    JOptionPane.QUESTION_MESSAGE
+                )?.takeIf {
+                    it.isNotBlank()
+                } ?: "Sin descripción"
 
-                print("Monto: ")
-                val monto =
-                    readlnOrNull()?.toDoubleOrNull() ?: 0.0
+                val monto = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese el monto:",
+                    "Nuevo Gasto",
+                    JOptionPane.QUESTION_MESSAGE
+                )?.toDoubleOrNull() ?: 0.0
 
                 manager.agregarMovimiento(
                     "Gasto",
@@ -64,23 +97,48 @@ fun main() {
                     descripcion,
                     monto
                 )
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Gasto registrado correctamente."
+                )
             }
 
-            3 -> manager.mostrarMovimientos()
+            3 -> {
+                manager.mostrarMovimientos()
+            }
 
             4 -> {
 
-                print("Categoría a buscar: ")
-                val categoria = readln()
+                val categoria = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese la categoría a buscar:",
+                    "Buscar Categoría",
+                    JOptionPane.QUESTION_MESSAGE
+                ) ?: ""
 
                 manager.buscarPorCategoria(categoria)
             }
 
-            5 -> manager.mostrarSaldo()
+            5 -> {
+                manager.mostrarSaldo()
+            }
 
-            6 -> println("Gracias por utilizar el sistema")
+            6 -> {
 
-            else -> println("Opción inválida")
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Gracias por utilizar el sistema."
+                )
+            }
+
+            else -> {
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Opción inválida."
+                )
+            }
         }
 
     } while (opcion != 6)

@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane
+
 class IMCManager {
 
     private val personas = mutableListOf<Persona>()
@@ -16,7 +18,10 @@ class IMCManager {
             )
         )
 
-        println("Persona registrada correctamente")
+        JOptionPane.showMessageDialog(
+            null,
+            "Persona registrada correctamente."
+        )
     }
 
     fun calcularIMC(persona: Persona): Double {
@@ -25,22 +30,55 @@ class IMCManager {
                 (persona.estatura * persona.estatura)
     }
 
+    fun clasificarIMC(imc: Double): String {
+
+        return when {
+
+            imc < 18.5 -> "Bajo peso"
+
+            imc < 25 -> "Peso normal"
+
+            imc < 30 -> "Sobrepeso"
+
+            else -> "Obesidad"
+        }
+    }
+
     fun mostrarHistorial() {
 
         if (personas.isEmpty()) {
-            println("No hay registros")
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No existen registros."
+            )
             return
         }
 
-        personas.forEach {
+        val texto = buildString {
 
-            val imc = calcularIMC(it)
+            append("===== HISTORIAL IMC =====\n\n")
 
-            println(
-                "${it.nombre} -> IMC: %.2f"
-                    .format(imc)
-            )
+            personas.forEach {
+
+                val imc = calcularIMC(it)
+
+                append(
+                    "Nombre: ${it.nombre}\n" +
+                            "Peso: ${it.peso} kg\n" +
+                            "Estatura: ${it.estatura} m\n" +
+                            "IMC: %.2f\n".format(imc) +
+                            "Clasificación: ${clasificarIMC(imc)}\n\n"
+                )
+            }
         }
+
+        JOptionPane.showMessageDialog(
+            null,
+            texto,
+            "Historial de Personas",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 
     fun buscarPersona(nombre: String) {
@@ -51,23 +89,51 @@ class IMCManager {
                 nombre,
                 ignoreCase = true
             )
-
         }
 
-        resultados.forEach {
+        if (resultados.isEmpty()) {
 
-            println(
-                "${it.nombre} | " +
-                        "Peso: ${it.peso} | " +
-                        "Estatura: ${it.estatura}"
+            JOptionPane.showMessageDialog(
+                null,
+                "No se encontraron personas con ese nombre."
             )
+            return
         }
+
+        val texto = buildString {
+
+            append("Resultados encontrados:\n\n")
+
+            resultados.forEach {
+
+                val imc = calcularIMC(it)
+
+                append(
+                    "Nombre: ${it.nombre}\n" +
+                            "Peso: ${it.peso} kg\n" +
+                            "Estatura: ${it.estatura} m\n" +
+                            "IMC: %.2f\n".format(imc) +
+                            "Clasificación: ${clasificarIMC(imc)}\n\n"
+                )
+            }
+        }
+
+        JOptionPane.showMessageDialog(
+            null,
+            texto,
+            "Búsqueda",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 
     fun promedioIMC() {
 
         if (personas.isEmpty()) {
-            println("No hay datos")
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No existen registros."
+            )
             return
         }
 
@@ -77,9 +143,18 @@ class IMCManager {
             }
             .average()
 
-        println(
-            "Promedio IMC: %.2f"
-                .format(promedio)
+        JOptionPane.showMessageDialog(
+            null,
+            """
+            ===== ESTADÍSTICAS =====
+            
+            Personas registradas: ${personas.size}
+            
+            Promedio general IMC:
+            %.2f
+            """.trimIndent().format(promedio),
+            "Promedio IMC",
+            JOptionPane.INFORMATION_MESSAGE
         )
     }
 }

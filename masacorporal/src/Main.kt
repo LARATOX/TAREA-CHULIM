@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane
+
 fun main() {
 
     val manager = IMCManager()
@@ -6,48 +8,62 @@ fun main() {
 
     do {
 
-        println("\n===== CALCULADORA IMC =====")
-        println("1. Registrar persona")
-        println("2. Mostrar historial")
-        println("3. Buscar persona")
-        println("4. Promedio general IMC")
-        println("5. Salir")
+        val opcionTexto = JOptionPane.showInputDialog(
+            null,
+            """
+            ===== CALCULADORA IMC =====
+            
+            1. Registrar persona
+            2. Mostrar historial
+            3. Buscar persona
+            4. Promedio general IMC
+            5. Salir
+            """.trimIndent(),
+            "Calculadora IMC",
+            JOptionPane.QUESTION_MESSAGE
+        )
 
-        print("Seleccione una opción: ")
-
-        opcion =
-            readlnOrNull()
-                ?.toIntOrNull()
-                ?: 0
+        opcion = opcionTexto?.toIntOrNull() ?: 5
 
         when (opcion) {
 
             1 -> {
 
-                print("Nombre: ")
                 val nombre =
-                    readlnOrNull()
-                        ?.takeIf {
-                            it.isNotBlank()
-                        }
-                        ?: "Sin nombre"
+                    JOptionPane.showInputDialog(
+                        null,
+                        "Ingrese el nombre:",
+                        "Registro de Persona",
+                        JOptionPane.QUESTION_MESSAGE
+                    )?.takeIf {
+                        it.isNotBlank()
+                    } ?: "Sin nombre"
 
-                print("Peso (kg): ")
                 val peso =
-                    readlnOrNull()
-                        ?.toDoubleOrNull()
-                        ?: 0.0
+                    JOptionPane.showInputDialog(
+                        null,
+                        "Ingrese el peso (kg):",
+                        "Registro de Persona",
+                        JOptionPane.QUESTION_MESSAGE
+                    )?.toDoubleOrNull() ?: 0.0
 
-                print("Estatura (m): ")
                 val estatura =
-                    readlnOrNull()
-                        ?.toDoubleOrNull()
-                        ?: 0.0
+                    JOptionPane.showInputDialog(
+                        null,
+                        "Ingrese la estatura (m):",
+                        "Registro de Persona",
+                        JOptionPane.QUESTION_MESSAGE
+                    )?.toDoubleOrNull() ?: 0.0
 
                 manager.registrarPersona(
                     nombre,
                     peso,
                     estatura
+                )
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Persona registrada correctamente."
                 )
             }
 
@@ -55,18 +71,33 @@ fun main() {
 
             3 -> {
 
-                print("Nombre a buscar: ")
-
-                val nombre = readln()
+                val nombre = JOptionPane.showInputDialog(
+                    null,
+                    "Ingrese el nombre a buscar:",
+                    "Buscar Persona",
+                    JOptionPane.QUESTION_MESSAGE
+                ) ?: ""
 
                 manager.buscarPersona(nombre)
             }
 
             4 -> manager.promedioIMC()
 
-            5 -> println("Hasta luego")
+            5 -> {
 
-            else -> println("Opción inválida")
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Gracias por utilizar la calculadora IMC."
+                )
+            }
+
+            else -> {
+
+                JOptionPane.showMessageDialog(
+                    null,
+                    "Opción inválida."
+                )
+            }
         }
 
     } while (opcion != 5)

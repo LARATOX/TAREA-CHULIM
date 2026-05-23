@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane
+
 class FinanzasManager {
 
     private val movimientos = mutableListOf<Movimiento>()
@@ -21,26 +23,45 @@ class FinanzasManager {
             )
         )
 
-        println("Movimiento registrado correctamente")
+        JOptionPane.showMessageDialog(
+            null,
+            "Movimiento registrado correctamente."
+        )
     }
 
     fun mostrarMovimientos() {
 
         if (movimientos.isEmpty()) {
-            println("No existen movimientos registrados")
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No existen movimientos registrados."
+            )
             return
         }
 
-        println("\n===== MOVIMIENTOS =====")
+        val texto = buildString {
 
-        movimientos.forEach {
-            println(
-                "ID: ${it.id} | " +
-                        "Tipo: ${it.tipo} | " +
-                        "Categoría: ${it.categoria} | " +
-                        "Monto: $${it.monto}"
-            )
+            append("===== MOVIMIENTOS =====\n\n")
+
+            movimientos.forEach {
+
+                append(
+                    "ID: ${it.id}\n" +
+                            "Tipo: ${it.tipo}\n" +
+                            "Categoría: ${it.categoria}\n" +
+                            "Descripción: ${it.descripcion}\n" +
+                            "Monto: $${it.monto}\n\n"
+                )
+            }
         }
+
+        JOptionPane.showMessageDialog(
+            null,
+            texto,
+            "Lista de Movimientos",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 
     fun buscarPorCategoria(categoria: String) {
@@ -50,15 +71,34 @@ class FinanzasManager {
         }
 
         if (resultados.isEmpty()) {
-            println("No se encontraron movimientos")
+
+            JOptionPane.showMessageDialog(
+                null,
+                "No se encontraron movimientos para la categoría '$categoria'."
+            )
             return
         }
 
-        resultados.forEach {
-            println(
-                "${it.tipo} - ${it.categoria} - $${it.monto}"
-            )
+        val texto = buildString {
+
+            append("Resultados encontrados:\n\n")
+
+            resultados.forEach {
+
+                append(
+                    "${it.tipo} | " +
+                            "${it.categoria} | " +
+                            "$${it.monto}\n"
+                )
+            }
         }
+
+        JOptionPane.showMessageDialog(
+            null,
+            texto,
+            "Búsqueda por Categoría",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 
     fun mostrarSaldo() {
@@ -71,6 +111,20 @@ class FinanzasManager {
             .filter { it.tipo == "Gasto" }
             .sumOf { it.monto }
 
-        println("\nSaldo actual: $${ingresos - gastos}")
+        val saldo = ingresos - gastos
+
+        JOptionPane.showMessageDialog(
+            null,
+            """
+            ===== RESUMEN FINANCIERO =====
+            
+            Total ingresos: $$ingresos
+            Total gastos: $$gastos
+            
+            Saldo actual: $$saldo
+            """.trimIndent(),
+            "Saldo",
+            JOptionPane.INFORMATION_MESSAGE
+        )
     }
 }
