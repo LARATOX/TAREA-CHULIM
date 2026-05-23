@@ -2,6 +2,7 @@ import javax.swing.JOptionPane
 
 class FinanzasManager {
 
+    //Lista mutable para almancenar movimientos financieros
     private val movimientos = mutableListOf<Movimiento>()
 
     fun agregarMovimiento(
@@ -44,6 +45,7 @@ class FinanzasManager {
 
             append("===== MOVIMIENTOS =====\n\n")
 
+            //Ciclo para iterar cada Movimiento
             movimientos.forEach {
 
                 append(
@@ -66,6 +68,7 @@ class FinanzasManager {
 
     fun buscarPorCategoria(categoria: String) {
 
+        //uso de filter para filtrar por categoria seleccionada.
         val resultados = movimientos.filter {
             it.categoria.equals(categoria, true)
         }
@@ -113,6 +116,12 @@ class FinanzasManager {
 
         val saldo = ingresos - gastos
 
+        val estadoSaldo = when {
+            saldo < 0 -> "Tu Saldo es Negativo. Considera reducir gastos para recuperar tu saldo."
+            saldo > 0 -> "Saldo Positivo"
+            else -> "Saldo en Cero"
+        }
+
         JOptionPane.showMessageDialog(
             null,
             """
@@ -122,6 +131,9 @@ class FinanzasManager {
             Total gastos: $$gastos
             
             Saldo actual: $$saldo
+            
+            Estado: $estadoSaldo
+            
             """.trimIndent(),
             "Saldo",
             JOptionPane.INFORMATION_MESSAGE

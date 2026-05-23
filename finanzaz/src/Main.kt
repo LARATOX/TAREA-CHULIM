@@ -42,16 +42,16 @@ fun main() {
                     "Ingrese la descripción:",
                     "Nuevo Ingreso",
                     JOptionPane.QUESTION_MESSAGE
-                )?.takeIf {
+                )?.takeIf { //Aqui se uso el NULL Safety con ?. para validacion de la "Descripción"
                     it.isNotBlank()
-                } ?: "Sin descripción"
+                } ?: "Sin descripción" //Uso de Elvis Operator
 
                 val monto = JOptionPane.showInputDialog(
                     null,
                     "Ingrese el monto:",
                     "Nuevo Ingreso",
                     JOptionPane.QUESTION_MESSAGE
-                )?.toDoubleOrNull() ?: 0.0
+                )?.toDoubleOrNull() ?: 0.0 //Aqui se uso el NULL Safety con "?." para validacion del "Monto"
 
                 manager.agregarMovimiento(
                     "Ingreso",
@@ -136,7 +136,7 @@ fun main() {
 
                 JOptionPane.showMessageDialog(
                     null,
-                    "Opción inválida."
+                    "Opción inválida, ingrse un valor valido ."
                 )
             }
         }
