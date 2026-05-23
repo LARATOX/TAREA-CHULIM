@@ -30,12 +30,25 @@ fun main() {
 
             1 -> {
 
-                val categoria = JOptionPane.showInputDialog(
+                val categoriaSeleccionada = JOptionPane.showInputDialog(
                     null,
-                    "Ingrese la categoría:",
+                    "Seleccione la categoría:",
                     "Nuevo Ingreso",
-                    JOptionPane.QUESTION_MESSAGE
-                ) ?: ""
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    CategoriaIngresos.values(),
+                    CategoriaIngresos.values().first()
+                ) as? CategoriaIngresos
+
+                if (categoriaSeleccionada == null) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Registro de ingreso cancelado."
+                    )
+                    continue
+                }
+
+                val categoria = categoriaSeleccionada.name
 
                 val descripcion = JOptionPane.showInputDialog(
                     null,
@@ -68,12 +81,25 @@ fun main() {
 
             2 -> {
 
-                val categoria = JOptionPane.showInputDialog(
+                val categoriaSeleccionada = JOptionPane.showInputDialog(
                     null,
-                    "Ingrese la categoría:",
+                    "Seleccione la categoría:",
                     "Nuevo Gasto",
-                    JOptionPane.QUESTION_MESSAGE
-                ) ?: ""
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    CategoriaGastos.values(),
+                    CategoriaGastos.values().first()
+                ) as? CategoriaIngresos
+
+                if (categoriaSeleccionada == null) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Registro de ingreso cancelado."
+                    )
+                    continue
+                }
+
+                val categoria = categoriaSeleccionada.name
 
                 val descripcion = JOptionPane.showInputDialog(
                     null,
