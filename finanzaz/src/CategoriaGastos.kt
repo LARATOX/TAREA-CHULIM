@@ -11,3 +11,4 @@ enum class CategoriaGastos(private val texto: String) {
     override fun toString(): String {
         return texto
     }
+}
