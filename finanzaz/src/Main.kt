@@ -43,7 +43,7 @@ fun main() {
                 if (categoriaSeleccionada == null) {
                     JOptionPane.showMessageDialog(
                         null,
-                        "Registro de gasto cancelado."
+                        "Registro de ingreso cancelado."
                     )
                     continue
                 }
@@ -94,7 +94,7 @@ fun main() {
                 if (categoriaSeleccionada == null) {
                     JOptionPane.showMessageDialog(
                         null,
-                        "Registro de ingreso cancelado."
+                        "Registro de gasto cancelado."
                     )
                     continue
                 }
