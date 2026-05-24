@@ -43,7 +43,7 @@ fun main() {
                 if (categoriaSeleccionada == null) {
                     JOptionPane.showMessageDialog(
                         null,
-                        "Registro de ingreso cancelado."
+                        "Registro de gasto cancelado."
                     )
                     continue
                 }
@@ -89,7 +89,7 @@ fun main() {
                     null,
                     CategoriaGastos.values(),
                     CategoriaGastos.values().first()
-                ) as? CategoriaIngresos
+                ) as? CategoriaGastos
 
                 if (categoriaSeleccionada == null) {
                     JOptionPane.showMessageDialog(
@@ -136,12 +136,55 @@ fun main() {
 
             4 -> {
 
-                val categoria = JOptionPane.showInputDialog(
+                val opcionesTipoMovimiento = arrayOf("Ingresos", "Gastos")
+                val tipoSeleccionado = JOptionPane.showOptionDialog(
                     null,
-                    "Ingrese la categoría a buscar:",
+                    "Seleccione el tipo de Movimiento:",
+                    "Tipo de Movimiento",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opcionesTipoMovimiento,
+                    opcionesTipoMovimiento.first()
+                )
+
+                if (tipoSeleccionado == JOptionPane.CLOSED_OPTION) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Búsqueda cancelada."
+                    )
+                    continue
+                }
+
+                val tipoMovimiento = opcionesTipoMovimiento[tipoSeleccionado]
+                val categorias: Array<Any> = when (tipoMovimiento) {
+                    "Ingresos" -> CategoriaIngresos.values().map { it as Any }.toTypedArray()
+                    else -> CategoriaGastos.values().map { it as Any }.toTypedArray()
+                }
+
+                val categoriaSeleccionada = JOptionPane.showInputDialog(
+                    null,
+                    "Seleccione la categoría:",
                     "Buscar Categoría",
-                    JOptionPane.QUESTION_MESSAGE
-                ) ?: ""
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    categorias,
+                    categorias.first()
+                )
+
+                if (categoriaSeleccionada == null) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Búsqueda cancelada."
+                    )
+                    continue
+                }
+
+                val categoria = when (categoriaSeleccionada) {
+                    is CategoriaIngresos -> categoriaSeleccionada.name
+                    is CategoriaGastos -> categoriaSeleccionada.name
+                    else -> categoriaSeleccionada.toString()
+                }
 
                 manager.buscarPorCategoria(categoria)
             }
