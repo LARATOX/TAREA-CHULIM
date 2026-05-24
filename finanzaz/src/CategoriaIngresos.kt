@@ -9,4 +9,3 @@ enum class CategoriaIngresos(val texto: String) {
     override fun toString(): String {
         return texto
     }
-}
