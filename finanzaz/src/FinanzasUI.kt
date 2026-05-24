@@ -257,7 +257,8 @@ class FinanzasUI : JFrame() {
         val categoria =
             if (tipo == "Ingresos") {
 
-                JOptionPane.showInputDialog(
+                val seleccion =
+                    JOptionPane.showInputDialog(
                     this,
                     "Seleccione la categoría:",
                     "Buscar",
@@ -265,11 +266,14 @@ class FinanzasUI : JFrame() {
                     null,
                     CategoriaIngresos.values(),
                     CategoriaIngresos.values().first()
-                )
+                    ) as? CategoriaIngresos ?: return
+
+                seleccion.name
 
             } else {
 
-                JOptionPane.showInputDialog(
+                val seleccion =
+                    JOptionPane.showInputDialog(
                     this,
                     "Seleccione la categoría:",
                     "Buscar",
@@ -277,14 +281,12 @@ class FinanzasUI : JFrame() {
                     null,
                     CategoriaGastos.values(),
                     CategoriaGastos.values().first()
-                )
+                    ) as? CategoriaGastos ?: return
+
+                seleccion.name
             }
 
-        if (categoria != null) {
-
-            manager.buscarPorCategoria(
-                categoria.toString()
-            )
-        }
+        System.out.println(categoria)
+        manager.buscarPorCategoria(categoria)
     }
 }
