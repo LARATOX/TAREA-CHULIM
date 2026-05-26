@@ -1,3 +1,11 @@
+# Integrantes
+-Lara González Ángel Gabriel 
+-Mendez Cortes Carlos Carlos 
+-Cruz Gutiérrez Jemimah 
+-Herrera Orozco Alejandra Valeria 
+-Cristian Abad Mendieta 
+-Dominguez Vela Aldo Francisco 
+
 # TAREA-CHULIM
 
 Proyecto realizado en Kotlin como practica para aplicar temas vistos en clase relacionados con programacion interfaces graficas y manejo de gitHub durante el desarrollo se trabajo con control de versiones commits y organizacion del codigo usando Kotlin como lenguaje principal.
