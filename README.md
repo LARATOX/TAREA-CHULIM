@@ -1,10 +1,11 @@
 # Integrantes
--Lara González Ángel Gabriel 
--Mendez Cortes Carlos Carlos 
--Cruz Gutiérrez Jemimah 
--Herrera Orozco Alejandra Valeria 
--Cristian Abad Mendieta 
--Dominguez Vela Aldo Francisco 
+
+- Lara González Ángel Gabriel
+- Mendez Cortes Carlos Carlos
+- Cruz Gutiérrez Jemimah
+- Herrera Orozco Alejandra Valeria
+- Cristian Abad Mendieta
+- Dominguez Vela Aldo Francisco
 
 # TAREA-CHULIM
 
